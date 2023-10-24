@@ -3,6 +3,10 @@
 
 #include <stddef.h>
 
+typedef int bool;
+#define true 1
+#define false 0
+
 /**
  * struct listint_s - Doubly linked list node
  *
@@ -28,6 +32,7 @@ int lomuto_partition(int *array, size_t size, int low, int high);
 void quicksort(int *array, size_t size, int low, int high);
 void shell_sort(int *array, size_t size);
 void cocktail_sort_list(listint_t **list);
-void swap_list_nodes(listint_t *node1, listint_t *node2, listint_t **list);
+void swap_forward(listint_t **list, listint_t **tail, listint_t **shaker);
+void swap_backward(listint_t **list, listint_t **tail, listint_t **shaker);
 
 #endif
