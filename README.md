@@ -157,3 +157,51 @@
 	7, 13, 19, 48, 52, 71, 73, 86, 96, 99
 	alex@/tmp/sort$
 	```
+
+2. Selection sort
+	- Write a function that sorts an array of integers in ascending order using the [Selection sort](https://en.wikipedia.org/wiki/Selection_sort 'wikipedia article') algorithm
+		- Prototype: `void selection_sort(int *array, size_t size);`
+		- You’re expected to print the `array` after each time you swap two elements (See example below)
+	- Write in the file `2-O`, the big O notations of the time complexity of the Selection sort algorithm, with 1 notation per line:
+		- in the best case
+		- in the average case
+		- in the worst case
+	```
+	alex@/tmp/sort$ cat 2-main.c
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include "sort.h"
+
+	/**
+	 * main - Entry point
+	 *
+	 * Return: Always 0
+	 */
+	int main(void)
+	{
+    		int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
+    		size_t n = sizeof(array) / sizeof(array[0]);
+
+    		print_array(array, n);
+    		printf("\n");
+    		selection_sort(array, n);
+    		printf("\n");
+    		print_array(array, n);
+    		return (0);
+	}
+	alex@/tmp/sort$ gcc -Wall -Wextra -Werror -pedantic  -std=gnu89 
+	2-main.c 2-selection_sort.c print_array.c -o select
+	alex@/tmp/sort$ ./select
+	19, 48, 99, 71, 13, 52, 96, 73, 86, 7
+
+	7, 48, 99, 71, 13, 52, 96, 73, 86, 19
+	7, 13, 99, 71, 48, 52, 96, 73, 86, 19
+	7, 13, 19, 71, 48, 52, 96, 73, 86, 99
+	7, 13, 19, 48, 71, 52, 96, 73, 86, 99
+	7, 13, 19, 48, 52, 71, 96, 73, 86, 99
+	7, 13, 19, 48, 52, 71, 73, 96, 86, 99
+	7, 13, 19, 48, 52, 71, 73, 86, 96, 99
+
+	7, 13, 19, 48, 52, 71, 73, 86, 96, 99
+	alex@/tmp/sort$
+	```
