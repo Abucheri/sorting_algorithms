@@ -46,5 +46,8 @@ void print_merge_info(int *left, size_t left_size, int *right,
 void heap_sort(int *array, size_t size);
 void swap_heap(int *array, size_t size, size_t a, size_t b);
 void sift_down(int *array, size_t size, size_t n, size_t i);
+void radix_sort(int *array, size_t size);
+int get_max(int *array, size_t size);
+void counting_sort_radix(int *array, size_t size, int exp);
 
 #endif
