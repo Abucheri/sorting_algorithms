@@ -49,5 +49,9 @@ void sift_down(int *array, size_t size, size_t n, size_t i);
 void radix_sort(int *array, size_t size);
 int get_max(int *array, size_t size);
 void counting_sort_radix(int *array, size_t size, int exp);
+void bitonic_sort(int *array, size_t size);
+void swap_bitonic(int *array, int i, int j);
+void bitonic_merge(int *array, int low, int count, int dir);
+void bitonic_sort_recursive(int *array, int low, int count, int dir);
 
 #endif
