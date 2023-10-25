@@ -34,5 +34,8 @@ void shell_sort(int *array, size_t size);
 void cocktail_sort_list(listint_t **list);
 void swap_forward(listint_t **list, listint_t **tail, listint_t **shaker);
 void swap_backward(listint_t **list, listint_t **tail, listint_t **shaker);
+void counting_sort(int *array, size_t size);
+int find_max(int *array, size_t size);
+int *count_elements(int *array, size_t size, int max);
 
 #endif
