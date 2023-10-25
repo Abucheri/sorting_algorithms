@@ -43,5 +43,8 @@ void merge_arrays(int *left, size_t left_size, int *right,
 void print_array_range(int *array, size_t start, size_t end);
 void print_merge_info(int *left, size_t left_size, int *right,
 		size_t right_size, int *result);
+void heap_sort(int *array, size_t size);
+void swap_heap(int *array, size_t size, size_t a, size_t b);
+void sift_down(int *array, size_t size, size_t n, size_t i);
 
 #endif
