@@ -37,5 +37,11 @@ void swap_backward(listint_t **list, listint_t **tail, listint_t **shaker);
 void counting_sort(int *array, size_t size);
 int find_max(int *array, size_t size);
 int *count_elements(int *array, size_t size, int max);
+void merge_sort(int *array, size_t size);
+void merge_arrays(int *left, size_t left_size, int *right,
+		size_t right_size, int *result);
+void print_array_range(int *array, size_t start, size_t end);
+void print_merge_info(int *left, size_t left_size, int *right,
+		size_t right_size, int *result);
 
 #endif
