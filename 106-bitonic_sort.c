@@ -4,76 +4,83 @@
 /**
  * swap_bitonic - Swap two elements in an array
  *
- * @array: The array to be modified
- * @i: Index of the first element
- * @j: Index of the second element
+ * @i: first element
+ * @j: second element
  *
  * Return: Nothing
+ *
+ * Description: This function swaps two elements in an array
  */
 
-void swap_bitonic(int *array, int i, int j)
+void swap_bitonic(int *i, int *j)
 {
 	int temp;
 
-	temp = array[i];
-	array[i] = array[j];
-	array[j] = temp;
+	temp = *i;
+	*i = *j;
+	*j = temp;
 }
 
 /**
  * bitonic_merge - Merge the array in bitonic sequence
  *
- * @array: The array to be sorted
- * @low: The starting index of the subarray
- * @count: The size of the subarray
- * @dir: Sorting direction (1 for increasing, 0 for decreasing)
+ * @size: The size of the array
+ * @start: The starting index of the sequence to sort
+ * @seq: The size of the sequence to sort
+ * @flow: The direction to sort in (UP or DOWN)
  *
  * Return: Nothing
+ *
+ * Description: This function merges the array into a bitonic sequence
  */
 
-void bitonic_merge(int *array, int low, int count, int dir)
+void bitonic_merge(int *array, size_t size, size_t start, size_t seq,
+		char flow)
 {
-	int k, i;
+	size_t i, jump = seq / 2;
 
-	if (count > 1)
+	if (seq > 1)
 	{
-		k = count / 2;
-		printf("Merging [%d/%d] (%s):\n", count,
-				(int)low + count, dir ? "UP" : "DOWN");
-		print_array(array + low, count);
-		for (i = low; i < low + k; i++)
+		for (i = start; i < start + jump; i++)
 		{
-			if ((array[i] > array[i + k]) == dir)
-			{
-				swap_bitonic(array, i, i + k);
-			}
+			if ((flow == 'U' && array[i] > array[i + jump]) ||
+			    (flow == 'D' && array[i] < array[i + jump]))
+				swap_bitonic(array + i, array + i + jump);
 		}
-		bitonic_merge(array, low, k, dir);
-		bitonic_merge(array, low + k, k, dir);
+		bitonic_merge(array, size, start, jump, flow);
+		bitonic_merge(array, size, start + jump, jump, flow);
 	}
 }
 
 /**
  * bitonic_sort_recursive - Recursively perform bitonic sort
  *
- * @array: The array to be sorted
- * @low: The starting index of the subarray
- * @count: The size of the subarray
- * @dir: Sorting direction (1 for increasing, 0 for decreasing)
+ * @array: An array of integers
+ * @size: The size of the array
+ * @start: The starting index of the building bitonic sequence
+ * @seq: The size of the block of the bitonic sequence
+ * @flow: The direction to sort the bitonic sequence block in (UP or DOWN)
  *
  * Return: Nothing
+ *
+ * Description: This function performs bitonic sort recursively
  */
 
-void bitonic_sort_recursive(int *array, int low, int count, int dir)
+void bitonic_sort_recursive(int *array, size_t size,
+		size_t start, size_t seq, char flow)
 {
-	int k;
+	size_t cut = seq / 2;
+	char *str = (flow == 'U') ? "UP" : "DOWN";
 
-	if (count > 1)
+	if (seq > 1)
 	{
-		k = count / 2;
-		bitonic_sort_recursive(array, low, k, 1);
-		bitonic_sort_recursive(array, low + k, k, 0);
-		bitonic_merge(array, low, count, dir);
+		printf("Merging [%lu/%lu] (%s):\n", seq, size, str);
+		print_array(array + start, seq);
+		bitonic_sort_recursive(array, size, start, cut, 'U');
+		bitonic_sort_recursive(array, size, start + cut, cut, 'D');
+		bitonic_merge(array, size, start, seq, flow);
+		printf("Result [%lu/%lu] (%s):\n", seq, size, str);
+		print_array(array + start, seq);
 	}
 }
 
@@ -84,6 +91,9 @@ void bitonic_sort_recursive(int *array, int low, int count, int dir)
  * @size: Size of the array
  *
  * Return: Nothing
+ *
+ * Description: Prints the array after each swap. Works for
+ * size = 2^k where k >= 0 (i.e., size equal to powers of 2)
  */
 
 void bitonic_sort(int *array, size_t size)
@@ -92,9 +102,5 @@ void bitonic_sort(int *array, size_t size)
 	{
 		return;
 	}
-	printf("Original array:\n");
-	print_array(array, size);
-	bitonic_sort_recursive(array, 0, size, 1);
-	printf("Sorted array:\n");
-	print_array(array, size);
+	bitonic_sort_recursive(array, size, 0, size, 'U');
 }
