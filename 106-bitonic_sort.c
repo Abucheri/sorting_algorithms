@@ -43,8 +43,8 @@ void bitonic_merge(int *array, size_t size, size_t start, size_t seq,
 	{
 		for (i = start; i < start + jump; i++)
 		{
-			if ((flow == 'U' && array[i] > array[i + jump]) ||
-			    (flow == 'D' && array[i] < array[i + jump]))
+			if ((flow == UP && array[i] > array[i + jump]) ||
+			    (flow == DOWN && array[i] < array[i + jump]))
 				swap_bitonic(array + i, array + i + jump);
 		}
 		bitonic_merge(array, size, start, jump, flow);
@@ -70,14 +70,14 @@ void bitonic_sort_recursive(int *array, size_t size,
 		size_t start, size_t seq, char flow)
 {
 	size_t cut = seq / 2;
-	char *str = (flow == 'U') ? "UP" : "DOWN";
+	char *str = (flow == UP) ? "UP" : "DOWN";
 
 	if (seq > 1)
 	{
 		printf("Merging [%lu/%lu] (%s):\n", seq, size, str);
 		print_array(array + start, seq);
-		bitonic_sort_recursive(array, size, start, cut, 'U');
-		bitonic_sort_recursive(array, size, start + cut, cut, 'D');
+		bitonic_sort_recursive(array, size, start, cut, UP);
+		bitonic_sort_recursive(array, size, start + cut, cut, DOWN);
 		bitonic_merge(array, size, start, seq, flow);
 		printf("Result [%lu/%lu] (%s):\n", seq, size, str);
 		print_array(array + start, seq);
@@ -102,5 +102,5 @@ void bitonic_sort(int *array, size_t size)
 	{
 		return;
 	}
-	bitonic_sort_recursive(array, size, 0, size, 'U');
+	bitonic_sort_recursive(array, size, 0, size, UP);
 }

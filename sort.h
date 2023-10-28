@@ -7,6 +7,9 @@ typedef int bool;
 #define true 1
 #define false 0
 
+#define UP 1
+#define DOWN 0
+
 /**
  * struct listint_s - Doubly linked list node
  *
